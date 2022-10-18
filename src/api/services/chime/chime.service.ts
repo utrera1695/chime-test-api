@@ -5,9 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class ChimeService {
   chime;
-  ClientRequestToken = null;
   constructor() {
-    this.ClientRequestToken = uuidv4();
     this.chime = new AWS.Chime({
       endpoint: process.env.AWS_CHIME_ENDPOINT,
       region: process.env.AWS_CHIME_REGION,
@@ -16,14 +14,12 @@ export class ChimeService {
         secretAccessKey: process.env.AWS_SECRET,
       }),
     });
-    console.log(this.ClientRequestToken);
-    console.log(this.chime);
   }
   async createMeeting() {
     if (!this.chime) throw 'not chime create';
     return await this.chime
       .createMeeting({
-        ClientRequestToken: this.ClientRequestToken,
+        ClientRequestToken: uuidv4(),
         ExternalMeetingId: 'chime-oculus-test',
         MediaRegion: 'us-west-2', // Specify the region in which to create the meeting.
       })
