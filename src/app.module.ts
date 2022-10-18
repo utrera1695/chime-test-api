@@ -13,7 +13,7 @@ import configuration from './config/configuration';
       load: [configuration],
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot(configuration().database as TypeOrmModuleOptions),
+    /*  TypeOrmModule.forRoot(configuration().database as TypeOrmModuleOptions), */
     /* AuthModule,
     UserModule */
   ],
