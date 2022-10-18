@@ -32,8 +32,12 @@ export class UserController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   async getUserById(@Param() params: IdDto): Promise<User | NotFoundException> {
-    const user = await this.userService.findOneById(params.id);
-    console.log(user);
-    return user;
+    try {
+      const user = await this.userService.findOneById(params.id);
+      console.log(user);
+      return user;
+    } catch (err) {
+      throw err;
+    }
   }
 }
